@@ -1,37 +1,20 @@
-// online bookstore
-
-let bookstoreInventory = [
-    {
-        title: "book1",
-        author: "kim",
-        genre: "science",
-        price: 3
-    },
-    {
-        title: "book2",
-        author: "joel",
-        genre: "mystery",
-        price: 2
-    },
-    {
-        title: "book3",
-        author: "spencer",
-        genre: "cooking",
-        price: 4
-    },
-    {
-        title: "book4",
-        author: "greg",
-        genre: "health",
-        price: 10
+function createInventory(title, author, genre, price) {
+    if (!title || !author || !genre || price === null) {
+        return `Incomplete book information. Please provide missing information.`
+    } else if (typeof title !== "string" || typeof author !== "string" || typeof genre !== "string" || typeof price !== "number") {
+        return `Incorrect book information. Please correct the incorrect information`
+    } else {
+        const bookstoreInventory = {
+            title: title,
+            author: author,
+            genre: genre,
+            price: price,
+        }
+        return bookstoreInventory
     }
-]
+}
 
-let spencersBooks = ["book1", "book2", "book3"]
-let kimsBooks = ["book1", "book4"]
-let joelsBooks = ["book2", "book3"]
-
-function sellABook(booksIWantToBuy) {
+function sellABook(booksIWantToBuy, bookstoreInventory) {
     let totalCost = bookstoreInventory.reduce((acc, book) => {
         let matchingBook = booksIWantToBuy.find(bookName => book.title === bookName)
         if (matchingBook) {
@@ -39,17 +22,22 @@ function sellABook(booksIWantToBuy) {
         }
         return acc
     }, 0)
-    return `$${totalCost.toFixed(2)}`
+    if (totalCost.toFixed(2) > 0) {
+        return `$${totalCost.toFixed(2)}`
+    } else {
+        return `Unfortunately this book is currently out-of-stock. Please try back another time.`
+    }
 }
-console.log(sellABook(spencersBooks))
-console.log(sellABook(kimsBooks))
-console.log(sellABook(joelsBooks))
 
-function findAuthorByGenre(genre) {
-    let book2 = bookstoreInventory.find(book => {
-        return book.genre === genre
-    })
-    return `The author's name is ${book2.author}`
+function findAuthorByGenre(genre, bookstoreInventory) {
+    let matchingBooks = bookstoreInventory.filter(book => book.genre.toLowerCase() === genre.toLowerCase())
+    if (matchingBooks.length > 1) {
+        return matchingBooks.map(matchingBook => matchingBook.author)
+    } else if (matchingBooks.length === 1) {
+        return matchingBooks[0].author
+    } else {
+        return `Sorry, there are no authors matching this genre.`
+    }
 }
-console.log(findAuthorByGenre("mystery"))
-console.log(findAuthorByGenre("cooking"))
+
+export { createInventory, sellABook, findAuthorByGenre }
