@@ -82,14 +82,14 @@ describe('findAuthorByGenre', function () {
         expect(matchingAuthor).to.equal("spencer")
     })
 
-    it('should return any authors that match a specific genere', function () {
+    it('should return any authors that match a specific genre', function () {
         const genre2 = "science";
         const matchingAuthors2 = findAuthorByGenre(genre2, bookstoreInventory);
 
         expect(matchingAuthors2).to.deep.equal(["kim", "joel"])
     });
 
-    it('should return a message if no authors match a specific genere', function () {
+    it('should return a message if no authors match a specific genre', function () {
         const genre3 = "health";
         const matchingAuthors3 = findAuthorByGenre(genre3, bookstoreInventory)
 
