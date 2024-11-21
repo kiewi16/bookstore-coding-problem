@@ -75,7 +75,7 @@ describe('findAuthorByGenre', function () {
         ]
     });
 
-    it('should return an author that matches a specific genere', function() {
+    it('should return an author that matches a specific genere', function () {
         const genre = "cooking";
         const matchingAuthor = findAuthorByGenre(genre, bookstoreInventory);
 
@@ -83,16 +83,23 @@ describe('findAuthorByGenre', function () {
     })
 
     it('should return any authors that match a specific genere', function () {
-       const genre2 = "science";
-       const matchingAuthors2 = findAuthorByGenre(genre2, bookstoreInventory);
+        const genre2 = "science";
+        const matchingAuthors2 = findAuthorByGenre(genre2, bookstoreInventory);
 
-       expect(matchingAuthors2).to.deep.equal(["kim", "joel"])
+        expect(matchingAuthors2).to.deep.equal(["kim", "joel"])
     });
 
-    it('should return a message if no authors match a specific genere', function() {
+    it('should return a message if no authors match a specific genere', function () {
         const genre3 = "health";
         const matchingAuthors3 = findAuthorByGenre(genre3, bookstoreInventory)
 
         expect(matchingAuthors3).to.equal("Sorry, there are no authors matching this genre.")
     })
+
+    it('should return any authors that match a specific genre even when the provided genre is all in uppercase', function () {
+        const genre4 = "SCIENCE";
+        const matchingAuthors4 = findAuthorByGenre(genre4, bookstoreInventory);
+
+        expect(matchingAuthors4).to.deep.equal(["kim", "joel"]);
+    });
 }); 
