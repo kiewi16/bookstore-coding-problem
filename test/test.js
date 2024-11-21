@@ -2,7 +2,7 @@ import { expect } from 'chai';
 import { sellABook, findAuthorByGenre, createInventory } from '../brewer-digital.js';
 
 describe('createInventory', function () {
-    it.only('should create a bookstore inventory', function () {
+    it('should create a bookstore inventory', function () {
         const bookstoreInventory = [
             createInventory("book1", "kim", "science", 3),
             createInventory("book2", "joel", "mystery", 2),
@@ -17,9 +17,12 @@ describe('createInventory', function () {
             price: 3
         })
     })
-    it.only('should return an error message when required fields are missing during inventory creation', function () {
+    it('should return an error message when required fields are missing during inventory creation', function () {
         const incompleteInformation = createInventory("book1", "", "scinece", 3)
         expect(incompleteInformation).to.equal("Incomplete book information. Please provide missing information.")
-
+    })
+    it('should return an error message when an incorrect data type is provided during inventory creation', function () {
+        const incorrectDataType = createInventory(1, 7, 9, "3")
+        expect(incorrectDataType).to.equal("Incorrect book information. Please correct the incorrect information")
     })
 });
