@@ -32,7 +32,7 @@ describe('createInventory', function () {
 });
 
 describe('sellABook', function () {
-    let bookstoreInventory 
+    let bookstoreInventory
 
     beforeEach(function () {
         bookstoreInventory = [
@@ -62,4 +62,37 @@ describe('sellABook', function () {
 
         expect(bookNotInStock).to.equal('Unfortunately this book is currently out-of-stock. Please try back another time.')
     });
-})
+});
+
+describe('findAuthorByGenre', function () {
+    let bookstoreInventory
+
+    beforeEach(function () {
+        bookstoreInventory = [
+            createInventory("book1", "kim", "science", 3),
+            createInventory("book2", "joel", "science", 2),
+            createInventory("book3", "spencer", "cooking", 4)
+        ]
+    });
+
+    it('should return an author that matches a specific genere', function() {
+        const genre = "cooking";
+        const matchingAuthor = findAuthorByGenre(genre, bookstoreInventory);
+
+        expect(matchingAuthor).to.equal("spencer")
+    })
+
+    it('should return any authors that match a specific genere', function () {
+       const genre2 = "science";
+       const matchingAuthors2 = findAuthorByGenre(genre2, bookstoreInventory);
+
+       expect(matchingAuthors2).to.deep.equal(["kim", "joel"])
+    });
+
+    it('should return a message if no authors match a specific genere', function() {
+        const genre3 = "health";
+        const matchingAuthors3 = findAuthorByGenre(genre3, bookstoreInventory)
+
+        expect(matchingAuthors3).to.equal("Sorry, there are no authors matching this genre.")
+    })
+}); 
